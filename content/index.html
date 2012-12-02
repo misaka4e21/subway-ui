@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hello World!</title>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/main.css"></link>
+    <script src="js/jquery-1.8.3.js"></script>
+    <script src="js/jquery-ui-1.9.2.custom.js"></script>
+    <script type="text/coffeescript">
+    $ ->
+      $("div.tile").draggable(snap:true,grid:[10,10])
+    window.whenAppReady=(func)->
+      window.addEventListener 'app-ready',(e)-> $(func)
+    whenAppReady ->
+      window.Tile=window.require("./tiles/index.coffee").Tile
+      window.tiles=[]
+      setInterval (->
+        for tile in window.tiles
+          tile.updateDiv()
+      ),1000
+    ###
+    window.addEventListener 'app-ready', (e)->
+      $(document).ready ->
+        window.Tile=window.require("./tiles/index.coffee").Tile
+        window.tiles=
+        (new Tile("cpus")).updateDiv($("div#cpuinfo"))
+     ###
+    </script>
+  </head>
+  <body>
+    <div id="memory" class="tile" style="width:200px;height:120px;font-size:100%;">
+      <script type="text/coffeescript">
+      whenAppReady ->
+        tile=new Tile("memory",$("div#memory"))
+        window.tiles.push tile
+        tile.updateDiv()
+      </script>
+    </div>
+    <div id="cpuinfo" class="tile" style="width:300px;height:300px;font-size:120%;overflow:auto;">
+      <script type="text/coffeescript">
+      whenAppReady ->
+        tile=new Tile("cpus",$("div#cpuinfo"))
+        window.tiles.push tile
+        tile.updateDiv()
+      </script>
+    </div>
+
+    <script src="js/coffee-script.js"></script>
+  </body>
+</html>

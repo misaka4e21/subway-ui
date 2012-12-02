@@ -1,0 +1,32 @@
+@blue: #3465a4;
+@lightblue: #cde;
+
+body {
+  background-color: @lightblue;
+}
+button {
+  background-color: @blue;
+  padding: 10px;
+  border-style: none;
+  font-size: 20pt;
+
+  &:hover {
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    border-right-style: solid;
+    border-right-width: 5px;
+    border-color: @blue;
+  }
+}
+
+input[type=text] {
+  outline: none;
+  border: none;
+  border-bottom: 1px #000 solid;
+  font-size: 13pt;
+  background: @lightblue;
+
+  &:focus {
+    background: @lightblue + #111;
+  }
+}

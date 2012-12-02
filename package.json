@@ -1,0 +1,10 @@
+{
+  "name": "metro",
+  "version": "0.0.0",
+  "main": "app.js",
+  "dependencies":{
+    "appjs":"0.0.x",
+    "coffee-script":"1.4.x",
+    "coffeekup":"0.3.x"
+  }
+}
