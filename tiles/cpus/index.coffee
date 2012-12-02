@@ -1,3 +1,3 @@
-exports.getData=()->
+exports.getData=(options={})->
   os=require('os')
   {cpus: os.cpus()}

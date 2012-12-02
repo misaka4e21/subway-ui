@@ -11,39 +11,34 @@
       $("div.tile").draggable(snap:true,grid:[10,10])
     window.whenAppReady=(func)->
       window.addEventListener 'app-ready',(e)-> $(func)
+    # Load Tiles
     whenAppReady ->
       window.Tile=window.require("./tiles/index.coffee").Tile
-      window.tiles=[]
+
+      # Configure contents of tiles
+      window.tileCfg=
+        memory:
+          module: "memory"
+          opts:
+            unit: "MiB"
+        cpuinfo:
+          module: "cpus"
+
+      window.tiles={}
+      for tileId, cfg of window.tileCfg
+        module=cfg.module
+        opts=cfg.opts
+        window.tiles[tileId]=new Tile(module,$('div#'+tileId),opts)
+        window.tiles[tileId].updateDiv()
       setInterval (->
-        for tile in window.tiles
+        for tileId,tile of window.tiles
           tile.updateDiv()
       ),1000
-    ###
-    window.addEventListener 'app-ready', (e)->
-      $(document).ready ->
-        window.Tile=window.require("./tiles/index.coffee").Tile
-        window.tiles=
-        (new Tile("cpus")).updateDiv($("div#cpuinfo"))
-     ###
     </script>
   </head>
   <body>
-    <div id="memory" class="tile" style="width:200px;height:120px;font-size:100%;">
-      <script type="text/coffeescript">
-      whenAppReady ->
-        tile=new Tile("memory",$("div#memory"))
-        window.tiles.push tile
-        tile.updateDiv()
-      </script>
-    </div>
-    <div id="cpuinfo" class="tile" style="width:300px;height:300px;font-size:120%;overflow:auto;">
-      <script type="text/coffeescript">
-      whenAppReady ->
-        tile=new Tile("cpus",$("div#cpuinfo"))
-        window.tiles.push tile
-        tile.updateDiv()
-      </script>
-    </div>
+    <div id="memory" class="tile" style="width:200px;height:120px;font-size:100%;"></div>
+    <div id="cpuinfo" class="tile" style="width:300px;height:300px;font-size:120%;overflow:auto;"></div>
 
     <script src="js/coffee-script.js"></script>
   </body>
