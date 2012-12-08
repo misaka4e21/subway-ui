@@ -9,15 +9,15 @@
     <script src="js/bootstrap.min.js"></script>
     <script type="text/coffeescript">
     $ ->
-      $("div.tile").draggable(snap:true)
+      $("div.extDiv").draggable(snap:true)
     window.whenAppReady=(func)->
       window.addEventListener 'app-ready',(e)-> $(func)
     # Load Tiles
     whenAppReady ->
-      window.Tile=window.require("./tiles/index.coffee").Tile
+      window.Extension=window.require("./extensions/index.coffee").Extension
 
-      # Configure contents of tiles
-      window.tileCfg=
+      # Configure contents of exts
+      window.extCfg=
         memory:
           module: "memory"
           opts:
@@ -25,21 +25,21 @@
         cpuinfo:
           module: "cpus"
 
-      window.tiles={}
-      for tileId, cfg of window.tileCfg
+      window.exts={}
+      for extId, cfg of window.extCfg
         module=cfg.module
         opts=cfg.opts
-        window.tiles[tileId]=new Tile(module,$('div#'+tileId),opts)
-        window.tiles[tileId].updateDiv()
+        window.exts[extId]=new Extension(module,$('div#'+extId),opts)
+        window.exts[extId].updateDiv()
       setInterval (->
-        for tileId,tile of window.tiles
-          tile.updateDiv()
+        for extId,ext of window.exts
+          ext.updateDiv()
       ),1000
     </script>
   </head>
   <body>
-    <div id="memory" class="tile span3"></div>
-    <div id="cpuinfo" class="tile span3"></div>
+    <div id="memory" class="extDiv span3"></div>
+    <div id="cpuinfo" class="extDiv span3"></div>
 
     <script src="js/coffee-script.js"></script>
   </body>

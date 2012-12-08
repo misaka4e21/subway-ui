@@ -1,6 +1,6 @@
 fs=require('fs')
 coffeekup=require('coffeekup')
-class Tile
+class Extension
   constructor:(@name,@div,@options={})->
     @path=__dirname+'/'+@name
   getTemplate:(data={},tplFileName='template.coffee')->
@@ -9,4 +9,4 @@ class Tile
   updateDiv:->
     main=require(@path+'/index.coffee')
     @div.html(@getTemplate(main.getData(@options)))
-exports.Tile=Tile
+exports.Extension=Extension
