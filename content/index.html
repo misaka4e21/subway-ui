@@ -3,44 +3,44 @@
   <head>
     <title>Hello World!</title>
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css"></link>
-    <link rel="stylesheet" type="text/css" href="css/metro-bootstrap.css"></link>
+    <!--<link rel="stylesheet" type="text/css" href="css/metro-bootstrap.css"></link>
+    -->
+    <link rel="stylesheet" type="text/css" href="css/bootmetro.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/main.css"></link>
     <script src="js/jquery-1.8.3.js"></script>
     <script src="js/jquery-ui-1.9.2.custom.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/coffeescript">
-    $ ->
-      $("div.extDiv").draggable(snap:true)
-    window.whenAppReady=(func)->
-      window.addEventListener 'app-ready',(e)-> $(func)
-    # Load Tiles
+    whenAppReady= (func)->
+      window.addEventListener 'app-ready', -> $(document).ready func
     whenAppReady ->
-      window.Extension=window.require("./extensions/index.coffee").Extension
-
-      # Configure contents of exts
-      window.extCfg=
-        memory:
-          module: "memory"
-          opts:
-            unit: "MiB"
-        cpuinfo:
-          module: "cpus"
-
-      window.exts={}
-      for extId, cfg of window.extCfg
-        module=cfg.module
-        opts=cfg.opts
-        window.exts[extId]=new Extension(module,$('div#'+extId),opts)
-        window.exts[extId].updateDiv()
-      setInterval (->
-        for extId,ext of window.exts
-          ext.updateDiv()
-      ),1000
+      extCfg = [
+        {module: 'memory',unit: 'MiB'}
+        {module: 'cpus'}
+        {
+          module: 'launcher'
+          programs: [
+            {
+              name: 'Google Chrome'
+              command: 'google-chrome'
+              color: 'green'
+            },
+            {
+              name: 'Emacs'
+              command: 'emacs'
+            }
+          ]
+        }
+      ]
+      Extension=require('./extensions/index.coffee').Extension
+      for cfg in extCfg
+        Extension.factory($,$('div#extContainer'),cfg)
     </script>
   </head>
   <body>
-    <div id="memory" class="extDiv span3"></div>
-    <div id="cpuinfo" class="extDiv span3"></div>
-
+    <div class='container-fluid'>
+      <div id="extContainer" class="row extContainer"></div>
+    </div>
     <script src="js/coffee-script.js"></script>
   </body>
 </html>

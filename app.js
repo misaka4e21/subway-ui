@@ -29,11 +29,12 @@
     F12 = function(e) {
       return e.keyIdentifier === 'F12';
     };
-    return window.addEventListener('keydown', function(e) {
+    window.addEventListener('keydown', function(e) {
       if (F12(e)) {
         return window.frame.openDevTools();
       }
     });
+    return window.frame.fullscreen();
   });
 
   window.on('close', function() {

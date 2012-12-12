@@ -9,6 +9,6 @@
   "dependencies":{
     "appjs":"0.0.x",
     "coffee-script":"1.4.x",
-    "coffeekup":"0.3.x"
+    "ck":"0.0.1"
   }
 }

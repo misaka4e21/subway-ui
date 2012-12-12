@@ -20,5 +20,6 @@ window.on 'ready', ->
   window.addEventListener 'keydown', (e)->
     if F12(e)
       window.frame.openDevTools()
+  window.frame.fullscreen()
 window.on 'close', ->
   console.log 'Window Close'
